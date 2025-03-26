@@ -1,4 +1,4 @@
-package com.carpool.Carpooling.config;
+package com.carpool.BlockChain_Based_Carpooling.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;

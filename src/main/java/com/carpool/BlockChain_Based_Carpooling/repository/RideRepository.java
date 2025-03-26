@@ -1,6 +1,6 @@
-package com.carpool.Carpooling.repository;
+package com.carpool.BlockChain_Based_Carpooling.repository;
 
-import com.carpool.Carpooling.model.Ride;
+import com.carpool.BlockChain_Based_Carpooling.model.Ride;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
