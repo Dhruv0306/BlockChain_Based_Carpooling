@@ -39,5 +39,8 @@ out/
 
 ### Environment Variables ###
 .env
+.env.local
+.env.*
+!.env.example
 
 web3j-cli-4.9.0-all.jar
