@@ -1,6 +1,6 @@
-package com.carpool.BlockChain_Based_Carpooling.repository;
+package com.carpooling.repository;
 
-import com.carpool.BlockChain_Based_Carpooling.model.User;
+import com.carpooling.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
     Optional<User> findByWalletAddress(String walletAddress);
+    boolean existsByEmail(String email);
+    boolean existsByWalletAddress(String walletAddress);
 } 

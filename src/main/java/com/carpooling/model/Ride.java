@@ -1,70 +1,60 @@
-package com.carpool.BlockChain_Based_Carpooling.model;
+package com.carpooling.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import org.locationtech.jts.geom.Point;
 import java.time.LocalDateTime;
 
-/**
- * @author Dhruv Patel
- * @version 1.0.0
- */
-
+@Data
 @Entity
 @Table(name = "rides")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Ride {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String rideId; // Blockchain ride ID
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne
     @JoinColumn(name = "poster_id", nullable = false)
     private User poster;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accepter_id")
-    private User accepter;
-
+    
     @Column(nullable = false)
-    private String sourceLocation;
-
+    private String startLocation;
+    
     @Column(nullable = false)
-    private String destinationLocation;
-
+    private String endLocation;
+    
     @Column(nullable = false)
     private LocalDateTime departureTime;
-
+    
     @Column(nullable = false)
     private Integer availableSeats;
-
+    
     @Column(nullable = false)
-    private Double farePerSeat;
-
+    private Double pricePerSeat;
+    
     @Column(nullable = false)
-    private String status; // "OPEN", "ACCEPTED", "COMPLETED", "CANCELLED"
-
-    @Column(nullable = false)
+    private Boolean isActive = true;
+    
+    @Column(columnDefinition = "geometry(Point,4326)")
+    private Point startPoint;
+    
+    @Column(columnDefinition = "geometry(Point,4326)")
+    private Point endPoint;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @Column
+    
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
-
+    
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-}
+} 

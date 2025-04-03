@@ -1,96 +1,48 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.4.3'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version '3.2.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    // id 'org.web3j' version '4.9.0'
 }
 
-group = 'com.carpool'
+group = 'com.carpooling'
 version = '0.0.1-SNAPSHOT'
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+sourceCompatibility = '21'
+targetCompatibility = '21'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	// Spring Boot Starters
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	
-	// Database
-	runtimeOnly 'org.postgresql:postgresql'
-	
-	// Blockchain
-	implementation 'org.web3j:core:4.9.0'
-	implementation 'org.web3j:web3j-spring-boot-starter:1.6.0'
-	
-	// JWT
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-	
-	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	
-	// Development Tools
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	
-	// Testing
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	// Additional dependencies
-	implementation 'org.web3j:core:4.9.0'
-	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-// Add task to download Web3j CLI
-task downloadWeb3jCli {
-	doLast {
-		def web3jCliUrl = 'https://github.com/web3j/web3j/releases/download/v4.9.0/web3j-cli-4.9.0-all.jar'
-		def web3jCliFile = file('web3j-cli-4.9.0-all.jar')
-		
-		if (!web3jCliFile.exists()) {
-			println "Downloading Web3j CLI..."
-			new URL(web3jCliUrl).withInputStream { i -> web3jCliFile.withOutputStream { it << i } }
-			println "Web3j CLI downloaded successfully"
-		} else {
-			println "Web3j CLI already exists"
-		}
-	}
-}
-
-// Update generateContractWrappers task to depend on downloadWeb3jCli
-task generateContractWrappers(type: JavaExec) {
-	dependsOn downloadWeb3jCli
-	classpath = files('web3j-cli-4.9.0-all.jar')
-	mainClass = 'org.web3j.codegen.SolidityFunctionWrapperGenerator'
-	args = [
-		'--solidityTypes=org.web3j.abi.datatypes',
-		'--outputFormat=java',
-		'--package=com.carpool.BlockChain_Based_Carpooling.contract.generated',
-		'--outputDir=src/main/java',
-		'src/main/resources/contracts'
-	]
-}
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // Database
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.hibernate.orm:hibernate-spatial:6.4.4.Final'
+    implementation 'org.locationtech.jts:jts-core:1.19.0'
+    
+    // Environment Variables
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+    
+    // Web3j
+    implementation 'org.web3j:web3j-spring-boot-starter:1.6.0'
+    implementation 'org.web3j:core:4.9.0'
+    
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+} 
