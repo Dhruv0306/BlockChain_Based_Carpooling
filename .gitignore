@@ -74,3 +74,6 @@ src/main/resources/static/uploads/
 # Test coverage
 coverage/
 *.lcov
+
+# Ganache logs
+GanacheLogs/
