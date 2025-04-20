@@ -1,14 +1,19 @@
 plugins {
-    id 'org.springframework.boot' version '3.2.3'
-    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
-    // id 'org.web3j' version '4.9.0'
+    // Spring Boot and dependency management plugins
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+    // Web3j plugin with compatible version
+    // id 'org.web3j' version '4.9.4'
 }
 
-group = 'com.carpooling'
+// Project group identifier
+group = 'com.carpool'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '21'
-targetCompatibility = '21'
+
+java {
+    sourceCompatibility = '17'
+}
 
 repositories {
     mavenCentral()
@@ -18,31 +23,49 @@ dependencies {
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    // Web3j
+    implementation 'org.web3j:core:4.9.8'
+    implementation 'org.web3j:contracts:4.9.8'
+    implementation 'org.web3j:abi:4.9.8'
+    implementation 'org.web3j:crypto:4.9.8'
+    implementation 'org.web3j:utils:4.9.8'
+    implementation 'org.web3j:codegen:4.9.8'
     
     // Database
     implementation 'org.postgresql:postgresql'
-    implementation 'org.hibernate.orm:hibernate-spatial:6.4.4.Final'
-    implementation 'org.locationtech.jts:jts-core:1.19.0'
-    
-    // Environment Variables
-    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
-    
-    // Web3j
-    implementation 'org.web3j:web3j-spring-boot-starter:1.6.0'
-    implementation 'org.web3j:core:4.9.0'
     
     // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     
     // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     
-    // Test
+    // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Dotenv
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Add this configuration to specify the main class
+springBoot {
+    mainClass = 'com.carpool.BlockchainBasedCarpoolingApplication'
+}
+
+// Add task for contract deployment
+task deployContract(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.carpool.DeployContract'
+    args = ['--spring.main.web-application-type=none', '--spring.profiles.active=deploy']
 } 

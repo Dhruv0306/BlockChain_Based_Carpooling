@@ -1,0 +1,13 @@
+{
+  "name": "carpool-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for blockchain-based carpooling",
+  "scripts": {
+    "compile": "truffle compile",
+    "migrate": "truffle migrate --reset",
+    "test": "truffle test"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.6"
+  }
+}
