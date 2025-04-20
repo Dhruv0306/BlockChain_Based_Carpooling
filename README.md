@@ -70,7 +70,7 @@ A decentralized peer-to-peer carpooling system built on the Polygon Amoy Testnet
 2. **Database Setup**
    ```sql
    CREATE DATABASE carpool_db;
-   CREATE USER dhruv WITH PASSWORD 'your_password';
+   CREATE USER 'your_user' WITH PASSWORD 'your_password';
    GRANT ALL PRIVILEGES ON DATABASE carpool_db TO dhruv;
    ```
 
