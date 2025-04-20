@@ -1,0 +1,165 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "rideId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "startLocation",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "endLocation",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "departureTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "availableSeats",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fare",
+          "type": "uint256"
+        }
+      ],
+      "name": "createRide",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "rideId",
+          "type": "string"
+        }
+      ],
+      "name": "requestRide",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "rideId",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "requester",
+          "type": "address"
+        }
+      ],
+      "name": "acceptRideRequest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "rideId",
+          "type": "string"
+        }
+      ],
+      "name": "makePayment",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "isPositive",
+          "type": "bool"
+        }
+      ],
+      "name": "updateReputation",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "rideId",
+          "type": "string"
+        }
+      ],
+      "name": "getRideInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "rideId",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "posterAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "startLocation",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "endLocation",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "departureTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "availableSeats",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fare",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "status",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct CarpoolContract.RideInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
